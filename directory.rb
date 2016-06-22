@@ -22,15 +22,14 @@ def print_header
   puts "--------------"
 end
 
-
 def print(students)
-  students.each_with_index do |student, index| if student[:name].length <= 12 && student[:name].start_with?('b')
-    puts "#{index + 1} #{student[:name]} (#{student[:cohort]} cohort)"
-end
-end
-end
-
-
+  index = 0
+   until index == students.size + 1
+     puts "#{students[index][:name]} (#{students[index][:cohort]} cohort)"
+     index += 1
+   end
+ end
+   
 
 
 
