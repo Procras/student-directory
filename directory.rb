@@ -16,6 +16,7 @@ def input_info
   students
 end
 
+
 def print_header
   puts "The students of Villains Academy".center(65)
   puts "--------------".center(65)
@@ -23,10 +24,14 @@ end
 
 def print(students)
   index = 0
-  while index < students.length
+  students.map do |hash|
+    if hash[:cohort] == "july"
     puts "#{index + 1}.#{students[index][:name]} - Hobby: #{students[index][:hobby]}, Birthplace: #{students[index][:birthplace]}, Height: #{students[index][:height]} ft, Cohort: #{students[index][:cohort]}"
+  else
+    puts "If name(s) not displayed, it means you are not part of July's cohort".center(65)
     index += 1
   end
+end
 end
 
 def print_footer(students)
