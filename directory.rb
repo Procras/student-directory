@@ -6,7 +6,7 @@ def input_info
 
   students = []
 
-  input = gets.chomp
+  input = gets.delete("\n")
   until input.empty?
     input = input.split(', ')
     students << { name: input[0], hobby: input[1], bith_place: input[2], height: input[3], cohort: input[4]}
@@ -15,7 +15,7 @@ def input_info
   else
     puts "Now we have #{students.count} student."
   end
-    input = gets.chomp
+    input = gets.delete("\n")
   end
   students
 end
