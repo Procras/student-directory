@@ -1,3 +1,26 @@
+def interactive_menu
+  students = []
+  loop do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+
+    selection = gets.chomp
+    case selection
+    when "1"
+      students = input_info
+    when "2"
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit
+    else
+      puts "I don't know what you meant, please try again"
+  end
+end
+end
+
 def input_info
   puts "Please enter student's name and details".center(65)
   puts "Please enter name, student's hobby, country of birth, height, and cohort".center(65)
@@ -41,15 +64,16 @@ end
 def print_footer(students)
   if students.length > 1
   puts "Overall we have #{students.length} students".center(65)
-else
-  puts "Overall we have #{students.length} student"
+elsif students.length == 1
+  puts "Overall we have #{students.length} student".center(65)
+else students.length < 1
+  puts "Overall we have #{students.length} students".center(65)
 end
 end
+
+
 
 
 
 #nothing happens until we call the methods
-students = input_info
-print_header
-print(students)
-print_footer(students)
+interactive_menu
