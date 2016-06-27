@@ -1,49 +1,42 @@
-def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  #creat an empty array
+def input_info
+  puts "Please enter student's name and details".center(65)
+  puts "Please enter name, student's hobby, country of birth, height, and cohort".center(65)
+  puts "Please separate the details with a comma and a single space".center(65)
+  puts "To finish, hit return twice.".center(65)
+
   students = []
-  #get the first names
-  name = gets.chomp
-  #while the name is not empty, repeat this code
-  while !name.empty? do
-    #add the student hash to the array
-    students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students"
-    #get another name from the user
-    name = gets.chomp
+
+  input = gets.chomp
+  until input.empty?
+    input = input.split(', ')
+    students << { name: input[0], hobby: input[1], bith_place: input[2], height: input[3], cohort: input[4]}
+    puts "Now we have #{students.count} students.".center(65)
+    input = gets.chomp
   end
   students
 end
 
-
 def print_header
-  puts "The students of Villains Academy"
-  puts "--------------"
+  puts "The students of Villains Academy".center(65)
+  puts "--------------".center(65)
 end
-
-
 
 def print(students)
   index = 0
-   until index == students.size + 1
-     puts "#{students[index][:name]} (#{students[index][:cohort]} cohort)".center(50)
-     index += 1
-   end
- end
-
-
-
-
-
+  while index < students.length
+    puts "#{index + 1}.#{students[index][:name]} - Hobby: #{students[index][:hobby]}, Birthplace: #{students[index][:birthplace]}, Height: #{students[index][:height]} ft, Cohort: #{students[index][:cohort]}"
+    index += 1
+  end
+end
 
 def print_footer(students)
-  puts " Overall, we have #{students.count} great students "
+  puts "Overall we have #{students.length} students".center(65)
 end
 
 
+
 #nothing happens until we call the methods
-students = input_students
+students = input_info
 print_header
 print(students)
 print_footer(students)
