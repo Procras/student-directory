@@ -10,7 +10,11 @@ def input_info
   until input.empty?
     input = input.split(', ')
     students << { name: input[0], hobby: input[1], bith_place: input[2], height: input[3], cohort: input[4]}
+    if students.length > 1
     puts "Now we have #{students.count} students.".center(65)
+  else
+    puts "Now we have #{students.count} student."
+  end
     input = gets.chomp
   end
   students
@@ -25,7 +29,7 @@ end
 def print(students)
   index = 0
   students.map do |hash|
-    if hash[:cohort] == "july"
+    if students[index][:cohort] == "july"
     puts "#{index + 1}.#{students[index][:name]} - Hobby: #{students[index][:hobby]}, Birthplace: #{students[index][:birthplace]}, Height: #{students[index][:height]} ft, Cohort: #{students[index][:cohort]}"
   else
     puts "If name(s) not displayed, it means you are not part of July's cohort".center(65)
@@ -35,7 +39,11 @@ end
 end
 
 def print_footer(students)
+  if students.length > 1
   puts "Overall we have #{students.length} students".center(65)
+else
+  puts "Overall we have #{students.length} student"
+end
 end
 
 
