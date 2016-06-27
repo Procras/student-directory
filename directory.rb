@@ -29,10 +29,10 @@ end
 def print(students)
   index = 0
   students.map do |hash|
-    if students[index][:cohort] == "july"
+    if !students[index][:name].empty?
     puts "#{index + 1}.#{students[index][:name]} - Hobby: #{students[index][:hobby]}, Birthplace: #{students[index][:birthplace]}, Height: #{students[index][:height]} ft, Cohort: #{students[index][:cohort]}"
   else
-    puts "If name(s) not displayed, it means you are not part of July's cohort".center(65)
+    puts "If name(s) not displayed, it is because you forgot to enter it!".center(65)
     index += 1
   end
 end
