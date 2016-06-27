@@ -1,79 +1,78 @@
+@students = [] # an empty array accessible to all methods
+
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  # get the first name
+  name = gets.chomp
+  # while the name is not empty, repeat this code
+  while !name.empty? do
+    # add the student hash to the array
+    @students << {name: name, cohort: :november}
+    puts "Now we have #{@students.count} students"
+    # get another name from the user
+    name = gets.chomp
+  end
+end
+
 def interactive_menu
-  students = []
   loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-
-    selection = gets.chomp
-    case selection
-    when "1"
-      students = input_info
-    when "2"
-      print_header
-      print(students)
-      print_footer(students)
-    when "9"
-      exit
-    else
-      puts "I don't know what you meant, please try again"
+    print_menu
+    process(gets.chomp)
   end
 end
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "3. Save the list to students.csv"
+  puts "9. Exit" # 9 because we'll be adding more items
 end
 
-def input_info
-  puts "Please enter student's name and details".center(65)
-  puts "Please enter name, student's hobby, country of birth, height, and cohort".center(65)
-  puts "Please separate the details with a comma and a single space".center(65)
-  puts "To finish, hit return twice.".center(65)
+def show_students
+  print_header
+  print_student_list
+  print_footer
+end
 
-  students = []
-
-  input = gets.delete("\n")
-  until input.empty?
-    input = input.split(', ')
-    students << { name: input[0], hobby: input[1], bith_place: input[2], height: input[3], cohort: input[4]}
-    if students.length > 1
-    puts "Now we have #{students.count} students.".center(65)
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "3"
+    save_students
+  when "9"
+    exit # this will cause the program to terminate
   else
-    puts "Now we have #{students.count} student."
+    puts "I don't know what you meant, try again"
   end
-    input = gets.delete("\n")
-  end
-  students
 end
-
 
 def print_header
-  puts "The students of Villains Academy".center(65)
-  puts "--------------".center(65)
+  puts "The students of Villains Academy"
+  puts "-------------"
 end
 
-def print(students)
-  index = 0
-  students.map do |hash|
-    if !students[index][:name].empty?
-    puts "#{index + 1}.#{students[index][:name]} - Hobby: #{students[index][:hobby]}, Birthplace: #{students[index][:birthplace]}, Height: #{students[index][:height]} ft, Cohort: #{students[index][:cohort]}"
-  else
-    puts "If name(s) not displayed, it is because you forgot to enter it!".center(65)
-    index += 1
+def print_student_list
+  @students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
+
+def print_footer
+  puts "Overall, we have #{@students.count} great students"
 end
 
-def print_footer(students)
-  if students.length > 1
-  puts "Overall we have #{students.length} students".center(65)
-elsif students.length == 1
-  puts "Overall we have #{students.length} student".center(65)
-else students.length < 1
-  puts "Overall we have #{students.length} students".center(65)
+def save_students
+  file = File.open("students.csv", "w")
+
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
 end
-end
 
-
-
-
-
-#nothing happens until we call the methods
 interactive_menu
