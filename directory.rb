@@ -19,17 +19,29 @@ def process(selection)
   case selection
   when "1"
     input_students
+    action_message
   when "2"
     show_students
+    action_message
   when "3"
     save_students
+    action_message
   when "4"
     load_students
   when "9"
+    bye_message
     exit # this will cause the program to terminate
   else
     puts "I don't know what you meant, try again"
   end
+end
+
+def action_message
+  puts "Okay, I will do as you command"
+end
+
+def bye_message
+  puts "Goodbye!"
 end
 
 def input_students
@@ -48,17 +60,11 @@ def input_students
   end
 end
 
-
-
-
-
 def show_students
   print_header
   print_student_list
   print_footer
 end
-
-
 
 def print_header
   puts "The students of Villains Academy"
@@ -77,7 +83,6 @@ end
 
 def save_students
   file = File.open("students.csv", "w")
-
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -85,6 +90,7 @@ def save_students
   end
     file.close
   end
+
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
