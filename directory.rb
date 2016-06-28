@@ -86,23 +86,24 @@ end
 def save_students
   puts "Enter filename"
   filename = STDIN.gets.chomp
-  file = File.open(filename, "w")
+  file = File.open(filename, "w") do |file|
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
-    file.close
-  end
+
+end
 
 def load_students(filename = "students.csv")
   if File.exists?(filename)
-  file = File.open(filename, "r")
+  file = File.open(filename, "r") do |file|
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     add_students
   end
-  file.close
+
+end
 end
 
 def add_students
